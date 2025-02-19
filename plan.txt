@@ -1,1 +1,7 @@
 Learning Springboot 
+
+Add API without loose coupling - 6ms
+Add API with loose coupling - 5ms / 11ms
+
+Get API without loose coupling - 4ms
+Get API with loose coupling - 4ms
