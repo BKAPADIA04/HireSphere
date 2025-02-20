@@ -1,59 +1,59 @@
 package com.microservices.First_Project.Job.impl;
 import com.microservices.First_Project.Job.*;
 
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.List;
 
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
 public class JobServiceimpl implements JobService {
-    private List<Job> jobs;
-    private Long nextId = 1L;
+    // private List<Job> jobs;
+    
+    // public JobServiceimpl(List<Job> jobs) {
+    //     this.jobs = jobs;
+    // }
 
-    public JobServiceimpl(List<Job> jobs) {
-        this.jobs = jobs;
+    JobRepository jobRepository;
+    public JobServiceimpl(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
     }
 
     @Override
     public List<Job> findAll() {
-        return jobs;
+        return jobRepository.findAll();
     }
 
     @Override
     public int count() {
-        return jobs.size();
+        return jobRepository.findAll().size();
     }
 
     @Override
     public String create(Job job) {
-        job.setId(nextId++);
-        jobs.add(job);
+        jobRepository.save(job);
         return "Job Successfully Added";
     }
 
     @Override
     public Job findById(Long id) {
-        for (Job job : jobs) {
-            if (job.getId() == id) {
-                return job;
-            }
-        }
-        return null;
+        return jobRepository.findById(id).orElse(null);
     }
 
     @Override
     public boolean deleteJobById(Long id) {
-        for (Job job : jobs) {
-            if (job.getId() == id) {
-                jobs.remove(job);
-                return true;
-            }
+        try {
+            jobRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean updateJobById(Long id, Job job) {
+        Optional<Job> jobOptional = jobRepository.findById(id);
         for (Job j : jobs) {
             if (j.getId() == id) {
                 j.setTitle(job.getTitle());
