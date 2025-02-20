@@ -1,12 +1,26 @@
 package com.microservices.First_Project.Job;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+// @Table(name = "job_table")
 public class Job {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
     private String location;
     private Double minSalary;
     private Double maxSalary;
+
+    public Job() {
+    }
 
     public Job(Long id,String title,String description,String location,Double minSalary,Double maxSalary) {
         this.id = id;
