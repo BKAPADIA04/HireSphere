@@ -40,4 +40,30 @@ public class JobServiceimpl implements JobService {
         }
         return null;
     }
+
+    @Override
+    public boolean deleteJobById(Long id) {
+        for (Job job : jobs) {
+            if (job.getId() == id) {
+                jobs.remove(job);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateJobById(Long id, Job job) {
+        for (Job j : jobs) {
+            if (j.getId() == id) {
+                j.setTitle(job.getTitle());
+                j.setDescription(job.getDescription());
+                j.setLocation(job.getLocation());
+                j.setMinSalary(job.getMinSalary());
+                j.setMaxSalary(job.getMaxSalary());
+                return true;
+            }
+        }
+        return false;
+    }
 }
