@@ -46,4 +46,23 @@ public class CompanyServiceimpl implements CompanyService{
     public void createCompany(Company company) {
         companyRepository.save(company);
     }
+
+    @Override
+    public boolean deleteCompanyById(Long id) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
+        if (companyOptional.isPresent()) {
+            companyRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Company getCompanyById(Long id) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
+        if (companyOptional.isPresent()) {
+            return companyOptional.get();
+        }
+        return null;
+    }
 }
