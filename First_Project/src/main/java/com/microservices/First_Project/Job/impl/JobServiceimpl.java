@@ -54,13 +54,17 @@ public class JobServiceimpl implements JobService {
     @Override
     public boolean updateJobById(Long id, Job job) {
         Optional<Job> jobOptional = jobRepository.findById(id);
-        for (Job j : jobs) {
+        if (jobOptional.isEmpty()) {
+            return false;
+        }
+        for (Job j : jobRepository.findAll()) {
             if (j.getId() == id) {
                 j.setTitle(job.getTitle());
                 j.setDescription(job.getDescription());
                 j.setLocation(job.getLocation());
                 j.setMinSalary(job.getMinSalary());
                 j.setMaxSalary(job.getMaxSalary());
+                jobRepository.save(j);
                 return true;
             }
         }

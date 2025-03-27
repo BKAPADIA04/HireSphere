@@ -1,10 +1,13 @@
 package com.microservices.First_Project.Job;
 
+import com.microservices.First_Project.Company.Company;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +23,9 @@ public class Job {
     private Double minSalary;
     private Double maxSalary;
 
+    @ManyToOne
+    private Company company;
+
     public Job() {
     }
 
@@ -30,6 +36,13 @@ public class Job {
         this.location = location;
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+    public Company getCompany() {
+        return company;
     }
 
     public Long getId() {
