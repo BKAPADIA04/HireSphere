@@ -63,6 +63,3 @@ npm start &
 echo "Backend running on: http://localhost:8080"
 echo "Frontend running on: http://localhost:3000"
 
-# Optional: Wait for processes (press Ctrl+C to kill)
-wait $BACKEND_PID
-
